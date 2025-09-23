@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legend Login Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      width: 350px;
+      animation: fadeIn 1s ease-in-out;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      position: relative;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #00fff7;
+      text-shadow: 0 0 10px #00fff7;
+    }
+
+    /* 🔴 Error message style */
+    .error-message {
+      color: #ff4d4d;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      text-shadow: 0 0 5px rgba(255,0,0,0.7);
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #00fff7;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      color: #aaa;
+      pointer-events: none;
+      transition: 0.3s ease all;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 0;
+      font-size: 12px;
+      color: #00fff7;
+    }
+
+    .input-group input:focus {
+      border-color: #00fff7;
+      box-shadow: 0 0 8px #00fff7;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #00fff7, #00c6ff);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 10px;
+      transition: 0.3s ease all;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #00c6ff, #00fff7);
+      box-shadow: 0 0 15px #00fff7;
+    }
+
+    @keyframes fadeIn {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #00fff7;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>LOGIN</h2>
+
+    <!-- 🔴 Display error message if passed from Flask -->
+    {% if error %}
+      <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <form action="/login" method="POST">
+      <div class="input-group">
+        <input type="text" required placeholder=" " id="username" name="username"/>
+        <label for="username">Username</label>
+      </div>
+      <div class="input-group">
+        <input type="password" required placeholder=" " id="password" name="password" />
+        <label for="password">Password</label>
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <div class="footer">
+      Don't have an account? <a href="/signup">Register</a>
+    </div>
+  </div>
+</body>
+</html>

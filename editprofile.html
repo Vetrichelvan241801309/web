@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .edit-container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      width: 400px;
+      animation: fadeIn 1s ease-in-out;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .edit-container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00fff7;
+      text-shadow: 0 0 10px #00fff7;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #00fff7;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .input-group label {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      color: #aaa;
+      pointer-events: none;
+      transition: 0.3s ease all;
+    }
+
+    .input-group input:focus + label,
+    .input-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 0;
+      font-size: 12px;
+      color: #00fff7;
+    }
+
+    .input-group input:focus {
+      border-color: #00fff7;
+      box-shadow: 0 0 8px #00fff7;
+    }
+
+    /* Password toggle button */
+    .toggle-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #00fff7;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #00fff7, #00c6ff);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 10px;
+      transition: 0.3s ease all;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #00c6ff, #00fff7);
+      box-shadow: 0 0 15px #00fff7;
+    }
+
+    @keyframes fadeIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0px); opacity: 1; }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #00fff7;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-container">
+    <h2>Edit Profile</h2>
+    <form action="/editprofile" method="POST">
+
+      <!-- Read-only Teacher ID -->
+      <div class="input-group">
+        <input type="text" id="teacherId" name="teacherId" value="{{ teacher.teacher_id }}" readonly />
+        <label for="teacherId">Teacher ID</label>
+      </div>
+
+      <!-- Editable Name -->
+      <div class="input-group">
+        <input type="text" id="teacherName" name="teacherName" required placeholder=" " value="{{ teacher.teacher_name }}"/>
+        <label for="teacherName">Teacher Name</label>
+      </div>
+
+      <!-- Editable Username -->
+      <div class="input-group">
+        <input type="text" id="username" name="username" required placeholder=" " value="{{ teacher.username }}"/>
+        <label for="username">Username</label>
+      </div>
+
+      <!-- Editable Email -->
+      <div class="input-group">
+        <input type="email" id="email" name="email" required placeholder=" " value="{{ teacher.email }}"/>
+        <label for="email">Email</label>
+      </div>
+
+      <!-- Editable Password with Toggle -->
+      <div class="input-group">
+        <input type="password" id="password" name="password" required placeholder=" " value="{{ teacher.password }}"/>
+        <label for="password">Password</label>
+        <button type="button" class="toggle-btn" onclick="togglePassword()">👁</button>
+      </div>
+
+      <button type="submit" class="btn">Update Profile</button>
+    </form>
+    <div class="footer">
+      <a href="/dashboard">Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passField = document.getElementById("password");
+      passField.type = passField.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>
